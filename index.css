@@ -124,17 +124,29 @@ input[type="radio"]{
 .meme-modal{
     display: none; /*flex when displayed*/
     position: fixed;
-    margin: auto;
-    top: 80px;
+    top: 0;
     left: 0;
     right: 0;
+    bottom: 0;
     align-items: center;
     justify-content: center;
     border: 1px solid #67595e;
     border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#meme-modal-inner{
+    position: relative;
     width: 420px;
     height: 490px;
     background-color: #fff0ee;
+    border: 1px solid #67595e;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cat-img{

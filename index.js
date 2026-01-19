@@ -17,6 +17,12 @@ function closeModal(){
     memeModal.style.display = 'none'
 }
 
+memeModal.addEventListener('click', function(e){
+    if(e.target === memeModal){
+        closeModal()
+    }
+})
+
 function highlightCheckedOption(e){
     const radios = document.getElementsByClassName('radio')
     for (let radio of radios){
