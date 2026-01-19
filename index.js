@@ -32,8 +32,13 @@ function highlightCheckedOption(e){
 }
 
 function getMatchingCatsArray(){     
-    if(document.querySelector('input[type="radio"]:checked')){
-        const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
+        const checkedRadio = document.querySelector('input[type="radio"]:checked')
+
+        if(!checkedRadio){
+            return []
+        }
+
+        const selectedEmotion = checkedRadio.value
         const isGif = gifsOnlyOption.checked
         
         const matchingCatsArray = catsData.filter(function(cat){
@@ -47,29 +52,39 @@ function getMatchingCatsArray(){
         })
         return matchingCatsArray 
     }  
-}
 
-function getSingleCatObject(){
+function getCatObject(){
     const catsArray = getMatchingCatsArray()
     
     if(catsArray.length === 1){
-        return catsArray[0]
+        return [catsArray[0]] // Wrap single item in array
     }
     else{
-        const randomNumber = Math.floor(Math.random() * catsArray.length)
-        return catsArray[randomNumber]
+        return catsArray
     }
 }
 
 function renderCat(){
-    const catObject = getSingleCatObject()
-    memeModalInner.innerHTML =  `
-        <img 
-        class="cat-img" 
-        src="./images/${catObject.image}"
-        alt="${catObject.alt}"
-        >
+    const catsArray = getCatObject()
+
+    if(!catsArray || catsArray.length === 0){
+        memeModalInner.innerHTML = '<p>No matching cats found!</p>'
+        memeModal.style.display = 'flex'
+        return
+    }
+
+     memeModalInner.innerHTML = ''
+
+     for(let cat of catsArray){
+         memeModalInner.innerHTML += `
+            <img 
+            class="cat-img" 
+            src="./images/${cat.image}"
+            alt="${cat.alt}"
+            >
         `
+     }
+
     memeModal.style.display = 'flex'
 }
 
